@@ -1,6 +1,11 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
 
+def upvote
+  @topic = Topic.find(params[:id])
+  @topic.votes.create
+  redirect_to(topics_path)
+end
   # GET /topics
   # GET /topics.json
   def index
@@ -10,6 +15,7 @@ class TopicsController < ApplicationController
   # GET /topics/1
   # GET /topics/1.json
   def show
+    @my_variable = 5
   end
 
   # GET /topics/new
@@ -28,7 +34,7 @@ class TopicsController < ApplicationController
 
     respond_to do |format|
       if @topic.save
-        format.html { redirect_to @topic, notice: 'Topic was successfully created.' }
+        format.html { redirect_to topics_path, notice: 'Topic was successfully created.' }
         format.json { render :show, status: :created, location: @topic }
       else
         format.html { render :new }
