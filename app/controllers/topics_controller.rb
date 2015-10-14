@@ -1,6 +1,12 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
 
+def downvote
+  @topic = Topic.find(params[:id])
+  @topic.votes.destroy
+  redirect_to(topics_path)
+end
+
 def upvote
   @topic = Topic.find(params[:id])
   @topic.votes.create
